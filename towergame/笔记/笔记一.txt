@@ -1,0 +1,15 @@
+塔防游戏步骤一：绘制主界面
+需要用到的头文件：
+#include <QPainter> --->画家类
+#include <QPixmap> --->用于创建一个存放主界面图片路径
+#include <QPaintEvent>
+
+//绘画函数
+void MainWindow::paintEvent(QPaintEvent *)//特别注意的时该函数名不能写错，不然导致绘画显示不出来，该函数名已经固定
+，并不是自定义函数名
+{
+    QPainter *painter = new QPainter(this);
+    QPixmap pixmap(":/timg.jpg");
+    painter->drawPixmap(0,0,this->width(),this->height(),pixmap);
+}
+

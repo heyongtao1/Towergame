@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>timg.jpg</file>
+        <file>start.jpg</file>
+        <file>end.jpg</file>
+        <file>open_spot.png</file>
+        <file>background2.jpg</file>
+        <file>enemy.gif</file>
+        <file>enemy1.gif</file>
+        <file>enemy2.gif</file>
+        <file>enemy3.gif</file>
+        <file>enemy4.gif</file>
+        <file>enemy5.gif</file>
+        <file>tower1.gif</file>
+        <file>tower3.gif</file>
+        <file>tower4.gif</file>
+        <file>tower5.gif</file>
+        <file>tower2.gif</file>
+        <file>bullet.png</file>
+        <file>explode.png</file>
+        <file>Map.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,45 @@
+塔防游戏步骤五：设计塔防类和物体的Vector2D移动
+
+塔防类的重要属性定义
+public:
+    Tower(QPoint pos,QString path);
+    void draw(QPainter *painter);
+private:
+    QPoint _pos;
+    QPixmap pixmap;
+
+塔防成员函数和构造函数的实现
+Tower::Tower(QPoint pos, QString path):QObject(0),pixmap(path)//千万别忘了路径初始化
+{
+    _pos = pos;
+}
+
+void Tower::draw(QPainter *painter)
+{
+    painter->save();
+    painter->setPen(Qt::red);
+    painter->drawEllipse(_pos,70,70);//画出防御塔的攻击范围
+    painter->drawPixmap(_pos,pixmap);
+}
+------------------------------------------------------------------------------------------------------
+Vector2D移动
+主要的步骤：
+  1)创建一个物体移动类
+在类中定义移动成员函数、绘画显示成员函数等
+定义物体的现在位置变量、向量前端位置变量、向量末端位置变量，由末端指向前端作为向量的方向，让物体沿着该方向一直
+移动下去（可以添加控制条件让物体在某位置停止）
+  2)在次界面上添加一个信号函数，方便于在该信号函数创建物体对象,将该信号和自己设置的组件关联就行。
+  3)注意：物体移动时连续的，所以使用定时器控制物体的移动函数void move()
+void MyWindow::addMyObject()//信号函数
+{
+    Myobject *object =new Myobject(QPoint(100,100),QPoint(500,500),":/tower.jpg") ;
+    myobject_list.push_back(object);
+    update();
+}
+
+void MyWindow::updatescene()//定时器控制该物体移动
+{
+    foreach(Myobject* object,myobject_list)
+    object->move();
+    update();
+}

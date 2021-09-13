@@ -1,0 +1,16 @@
+塔防游戏步骤三：主界面和次界面的切换
+在次界面中创建一个按钮
+在次界面.cpp添加该按钮与该次界面关联起来
+    MyButton *back_Bt = new MyButton(":/Start.png");
+    back_Bt->setParent(this);
+    back_Bt->move(40,40);
+
+    connect(back_Bt,&MyButton::clicked,this,[=](){//将Mywindow界面上的按钮和该界面关联起来，按钮发出信号给该界面接收
+        emit back_signals();//back_signals()是在次界面.h文件中自定义的返回信号
+    });
+在主界面.cpp中添加
+    connect(scene,&MyWindow::back_signals,this,[=](){    //将Mywindow的对象和主界面关联起来，Mywindow中
+的按钮发出clicked信号给Mywindow的对象，该对象发出back_signals信号给主界面
+        scene->close();
+        this->show();
+    });

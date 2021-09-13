@@ -1,0 +1,37 @@
+塔防游戏步骤四：按钮弹跳效果实现
+用到的头文件：
+#include <QPushButton>//实现按钮动态弹跳的头文件
+添加俩个成员函数
+    void zoomdown();//按钮向下跳
+    void zoomupt();//按钮向上跳
+
+按钮.cpp文件添加
+//按钮向下跳
+void MyButton::zoomdown()
+{
+    QPropertyAnimation *animation = new QPropertyAnimation(this); //创建一个动态类的对象
+    animation->setDuration(300);   //持续动态的时间
+    animation->setStartValue(QRect(this->x(),this->y(),this->width(),this->height()));  //动态对象的开始位置
+    animation->setEndValue(QRect(this->x(),this->y()+10,this->width(),this->height())); //动态对象的结束位置
+    animation->start();  //动态效果开始
+    qDebug()<<"向下跳";
+}
+//按钮向上跳
+void MyButton::zoomupt()
+{
+    QPropertyAnimation *animation = new QPropertyAnimation(this); //创建一个动态类的对象
+    animation->setDuration(300);   //持续动态的时间
+    animation->setStartValue(QRect(this->x(),this->y()+10,this->width(),this->height()));  //动态对象的开始位置
+    animation->setEndValue(QRect(this->x(),this->y(),this->width(),this->height())); //动态对象的结束位置
+    animation->start();  //动态效果开始
+    qDebug()<<"向上跳";
+}
+
+由于主次界面的切换导致看不到按钮弹跳的效果
+在主界面.cpp添加
+头文件include<QTimer>
+
+ QTimer::singleShot(600,this,[=](){   -------->在之后的600毫秒执行切换界面操作
+            this->hide();
+            scene->show();
+        });

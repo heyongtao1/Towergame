@@ -1,0 +1,39 @@
+塔防游戏步骤二：创建一个按钮类
+需要用到的头文件：include<QPushButton>
+方法一：
+在mainwindow.cpp中创建
+
+QPushButton *bt = new QPushButton(this);--》创建一个按钮
+bt->setFixedSize(100,50);---》设置按钮大小
+bt->move(40,40);---》设置按钮位置
+connect(bt,&QPushButton::clicked,this,&QMainWindow::close);--》将按钮和主界面关联
+
+方法二：
+创建一个按钮类
+在MyButton.h中
+class MyButton : public QPushButton
+{
+    Q_OBJECT
+public:
+    MyButton(QString pix);
+
+signals:
+
+public slots:
+};
+在MyButton.cpp中
+//在构造函数中设置按钮属性，比如大小、位置
+MyButton::MyButton(QString pix):QPushButton(0)//由于新建的自定义按钮类继承了QPushButton类,所以要初始化基类
+{
+   QPixmap pixmap(pix);//将图片路径传给QPixmap的对象
+   this->setFixedSize(pixmap.width(),pixmap.height());//设置按钮大小
+   this->setStyleSheet("QPushButton{border:Opx;}");//设置按钮根据图片的大小设置样式
+   this->setIcon(pixmap);//设置图标
+   this->setIconSize(QSize(pixmap.width(),pixmap.height()));//设置图标的大小
+}
+
+最后在mainwindow.cpp的构造函数添加中
+    MyButton *Bt = new MyButton(":/Start.png");---》新建一个自定义按钮的对象
+    Bt->setParent(this);---》指定按钮的基类
+    Bt->move(40,40);---》按钮的位置
+    connect(Bt,&MyButton::clicked,this,&QMainWindow::close);---》将按钮与主界面关联
